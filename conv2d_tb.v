@@ -36,7 +36,7 @@ module conv2d_tb;
 	wire ready;
    
 	
-	reg [11:0] mem [0:24];
+	
 
 	// Instantiate the Unit Under Test (UUT)
 	conv2d uut (
@@ -49,7 +49,7 @@ module conv2d_tb;
 		.d_out(d_out), 
 		.ready(ready)
 	);
-
+reg [11:0] mem [0:24];
 	initial begin
 		// Initialize Inputs
 		clk = 0;
