@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="12" />
+   <WVObjectSize size="17" />
    <wvobject fp_name="/conv2d_tb2/start" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">start</obj_property>
       <obj_property name="ObjectShortName">start</obj_property>
@@ -19,22 +19,42 @@
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
    </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/ReadAddress2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">ReadAddress2[17:0]</obj_property>
+      <obj_property name="ObjectShortName">ReadAddress2[17:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
    <wvobject fp_name="/conv2d_tb2/ReadAddress" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ReadAddress[16:0]</obj_property>
       <obj_property name="ObjectShortName">ReadAddress[16:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/temp_row" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">temp_row[8:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_row[8:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/temp_column" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">temp_column[8:0]</obj_property>
+      <obj_property name="ObjectShortName">temp_column[8:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/BufferEnable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BufferEnable</obj_property>
+      <obj_property name="ObjectShortName">BufferEnable</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/AddressValid" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AddressValid</obj_property>
+      <obj_property name="ObjectShortName">AddressValid</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/state" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">state[2:0]</obj_property>
       <obj_property name="ObjectShortName">state[2:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/conv2d_tb2/uut/d_in" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">d_in[11:0]</obj_property>
-      <obj_property name="ObjectShortName">d_in[11:0]</obj_property>
-   </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/BufferOut" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">BufferOut[11:0]</obj_property>
       <obj_property name="ObjectShortName">BufferOut[11:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/WriteAddress" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">WriteAddress[16:0]</obj_property>
@@ -55,6 +75,10 @@
    <wvobject fp_name="/conv2d_tb2/d_in" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">d_in[11:0]</obj_property>
       <obj_property name="ObjectShortName">d_in[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/b/d_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">d_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">d_out[11:0]</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/b/mem" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">mem[8:0,11:0]</obj_property>

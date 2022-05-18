@@ -33,7 +33,7 @@ module conv2d
   parameter ImageSizeBitWidth=8
   )(
 input clk,rst,start,
-input [DataBitWidth-1:0] d_in,
+input [DataBitWidth-1:0] d_in,     // from memory
 output  [AddressBitWidth-1:0]ReadAddress,
 output reg [AddressBitWidth-1:0] WriteAddress,
 output  [DataBitWidth-1:0] d_out,
@@ -45,23 +45,24 @@ output reg ready
 reg [StateBitWidth-1:0] state;
 reg [FilterSize-1:0] row_reg,column_reg;
 reg [ImageSizeBitWidth-1:0] row,column;
-reg [ImageSizeBitWidth:0]temp_row,temp_column; // temp_row and temp_column can be negative so 1 more bit
-wire [DataBitWidth-1:0] BufferOut;
+reg signed[ImageSizeBitWidth:0]temp_row,temp_column; // temp_row and temp_column can be negative so 1 more bit
+wire [DataBitWidth-1:0] BufferOut,BufferIn;
 wire signed [AddressBitWidth:0] ReadAddress2;
 reg BufferEnable;
 
-	  
+assign BufferIn=d_in;	  
 // Instantiating Buffer
-buffer b(clk,rst,BufferEnable,d_in,BufferOut);
+buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
 
 // Finding valid Address
 wire AddressValid;
 assign AddressValid = (temp_row>=0 && temp_row <=`NoOfRows-1) && (temp_column>=0 && temp_column <=`NoOfColumns-1);
-assign d_out = AddressValid ? BufferOut:0;
+//assign d_out = (AddressValid ==1) ? BufferOut:12'd0;
+assign d_out = BufferOut;
 
 // Generating Read Address
 assign ReadAddress2 = temp_row*`NoOfColumns+temp_column;
-assign ReadAddress=ReadAddress2[AddressBitWidth-1:0]; // Neglecting MSB of ReadAddress2
+assign ReadAddress=AddressValid ? ReadAddress2[AddressBitWidth-1:0]:0; // Neglecting MSB of ReadAddress2
 
 
 
@@ -69,7 +70,6 @@ always @(posedge clk)
 if (rst)
     begin
 	 state<=`idle;
-	 //addr_rd <=0;
 	 WriteAddress <=0;
 	 row_reg <=3'b001;
 	 column_reg <=3'b001; // 001-->010-->100-->001
