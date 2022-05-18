@@ -22,7 +22,7 @@
    <wvobject fp_name="/conv2d_tb2/uut/ReadAddress2" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ReadAddress2[17:0]</obj_property>
       <obj_property name="ObjectShortName">ReadAddress2[17:0]</obj_property>
-      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/ReadAddress" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">ReadAddress[16:0]</obj_property>

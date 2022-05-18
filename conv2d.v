@@ -19,9 +19,11 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 `define idle 3'b000
-`define left 3'b001
-`define middle 3'b010
-`define complete 3'b011
+`define top_left 3'b001
+`define top 3'b010
+`define left 3'b011
+`define middle 3'b100
+`define complete 3'b101
 
 `define NoOfColumns 8'b0000_0101
 `define NoOfRows 8'b0000_0101
@@ -85,25 +87,24 @@ else
 	 `idle: begin
 	       if(start)
 			    begin
-				 state<=`left;
+				 state<=`top_left;
 				 BufferEnable<=1;
-				 temp_row<=temp_row-1;
-				 temp_column<=temp_column-1;
+				 temp_row<=-1;
+				 temp_column<=-1;
 				 end				 
 			 end
-			 
-	 `left: begin
-	       if ( row_reg[2]==1'b1) // previous or next value at the clock edge??
+
+`top_left: begin
+           if ( row_reg[2]==1'b1) // previous or next value at the clock edge??
 			     begin
 				  row_reg<={row_reg[1:0],row_reg[2]};
 				  column_reg<={column_reg[1:0],column_reg[2]};
 				  temp_column<=temp_column+1;
-				  temp_row<=row;
+				  temp_row<=-1;
 				  if (column_reg[2]==1)
 				      begin
-						state<=`middle;
+						state<=`top;
 						column<=column+1'b1;
-						temp_column<=temp_column+1'b1;
 					   end
 				  end
 			 else
@@ -112,6 +113,54 @@ else
 				  temp_row<=temp_row+1'b1;
 				  end
 			 end
+			 
+	  `top: begin
+	        if (temp_column == `NoOfColumns && row_reg[2]==1)
+				       begin
+						 state<=`left;
+						 column<=0;
+						 temp_column<=-1;
+						 row<=row+1;
+						 temp_row<=row+1;
+					    row_reg<={row_reg[1:0],row_reg[2]};
+						 end
+			      else
+				       if (row_reg[2]==1)
+						     begin
+							  column<=column+1;
+							  temp_column<=temp_column+1;
+							  temp_row<=-1;
+							  row_reg<={row_reg[1:0],row_reg[2]};
+							  end
+						 else
+						     begin
+							  temp_row<=temp_row+1;
+							  row_reg<={row_reg[1:0],row_reg[2]};
+							  end
+			  end
+	     
+	        
+	  
+	 `left: begin
+	        if ( row_reg[2]==1'b1) // previous or next value at the clock edge??
+			      begin
+				   row_reg<={row_reg[1:0],row_reg[2]};
+				   column_reg<={column_reg[1:0],column_reg[2]};
+				   temp_column<=temp_column+1;
+				   temp_row<=row;
+				   if (column_reg[2]==1)
+				       begin
+						 state<=`middle;
+						 column<=column+1'b1;
+						 temp_column<=temp_column+1'b1;
+					    end
+				   end
+			  else
+			      begin
+				   row_reg<={row_reg[1:0],row_reg[2]};
+				   temp_row<=temp_row+1'b1;
+				   end
+			  end
 	
 	 `middle:begin
            if (temp_row == `NoOfRows && temp_column == `NoOfColumns && row_reg[2]==1)
