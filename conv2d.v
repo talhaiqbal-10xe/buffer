@@ -30,7 +30,7 @@ input clk,rst,start,
 input [11:0] d_in,
 output  [16:0]addr_rd,
 output reg [16:0] addr_wr,
-output reg [11:0] d_out,
+output  [11:0] d_out,
 output reg ready
     );
 reg [2:0] state,row_reg,column_reg;
@@ -39,8 +39,8 @@ reg en;
 wire [11:0] buffer_out;
 
 assign addr_rd = temp_row*`NoOfColumns+temp_column;
-
-buffer b(clk,rst,en,d_in,d_out);
+assign d_out = buffer_out;
+buffer b(clk,rst,en,d_in,buffer_out);
 
 always @(posedge clk)
 if (rst)
@@ -48,7 +48,6 @@ if (rst)
 	 state<=`idle;
 	 //addr_rd <=0;
 	 addr_wr <=0;
-	 d_out <=0;
 	 row_reg <=3'b001;
 	 column_reg <=3'b001; // 001-->010-->100-->001
 	 row<=0;
