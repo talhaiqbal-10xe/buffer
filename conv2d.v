@@ -52,7 +52,7 @@ wire [DataBitWidth-1:0] BufferOut,BufferIn;
 wire signed [AddressBitWidth:0] ReadAddress2;
 reg BufferEnable;
 
-assign BufferIn=d_in;	  
+assign BufferIn=AddressValid?d_in:0;	  
 // Instantiating Buffer
 buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
 
@@ -64,7 +64,7 @@ assign d_out = BufferOut;
 
 // Generating Read Address
 assign ReadAddress2 = temp_row*`NoOfColumns+temp_column;
-assign ReadAddress=AddressValid ? ReadAddress2[AddressBitWidth-1:0]:0; // Neglecting MSB of ReadAddress2
+assign ReadAddress=ReadAddress2[AddressBitWidth-1:0]; // Neglecting MSB of ReadAddress2
 
 
 
