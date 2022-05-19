@@ -50,7 +50,7 @@ reg [ImageSizeBitWidth-1:0] row,column;
 reg signed[ImageSizeBitWidth:0]temp_row,temp_column; // temp_row and temp_column can be negative so 1 more bit
 wire [DataBitWidth-1:0] BufferOut,BufferIn;
 wire signed [AddressBitWidth:0] ReadAddress2;
-reg BufferEnable;
+reg BufferEnable,WriteEnable2;
 
 assign BufferIn=AddressValid?d_in:0;	  
 // Instantiating Buffer
@@ -81,7 +81,7 @@ if (rst)
 	 temp_column<=0;
 	 BufferEnable<=0;
 	 ready<=0;
-	 WriteEnable<=0;
+	 WriteEnable2<=0;
 	 end
 else
     case (state)
@@ -104,8 +104,7 @@ else
 				  temp_row<=-1;
 				  if (column_reg[2]==1)
 				      begin
-						WriteEnable<=1;
-						WriteAddress<=WriteAddress+1;
+						WriteEnable2<=1;
 						state<=`top;
 						column<=column+1'b1;
 					   end
@@ -120,7 +119,7 @@ else
 	  `top: begin
 	        if (temp_column == `NoOfColumns && row_reg[2]==1)  
 				       begin
-						 WriteEnable<=1;
+						 WriteEnable2<=1;
 						 WriteAddress<=WriteAddress+1;
 						 state<=`left;
 						 column<=0;
@@ -132,7 +131,7 @@ else
 			      else
 				       if (row_reg[2]==1)
 						     begin
-							  WriteEnable<=1;
+							  WriteEnable2<=1;
 							  WriteAddress<=WriteAddress+1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
@@ -141,7 +140,7 @@ else
 							  end
 						 else
 						     begin
-							  WriteEnable<=0;
+							  WriteEnable2<=0;
 							  temp_row<=temp_row+1;
 							  row_reg<={row_reg[1:0],row_reg[2]};
 							  end
@@ -159,7 +158,7 @@ else
 				   if (column_reg[2]==1)
 				       begin
 						 WriteAddress<=WriteAddress+1;
-						 WriteEnable<=1;
+						 WriteEnable2<=1;
 						 state<=`middle;
 						 column<=column+1'b1;
 						 temp_column<=temp_column+1'b1;
@@ -167,7 +166,7 @@ else
 				   end
 			  else
 			      begin
-					WriteEnable<=0;
+					WriteEnable2<=0;
 				   row_reg<={row_reg[1:0],row_reg[2]};
 				   temp_row<=temp_row+1'b1;
 				   end
@@ -178,14 +177,14 @@ else
 			      //row == `NoOfRows-2 && temp_column == 0 && row_reg[0]==1
 			      begin
 					WriteAddress<=WriteAddress+1;
-					WriteEnable<=1;
+					WriteEnable2<=1;
 				   state<=`complete;
 				   end
 			  else
 			      if (temp_column == `NoOfColumns && row_reg[2]==1)
 				       begin
 						 WriteAddress<=WriteAddress+1;
-					    WriteEnable<=1;
+					    WriteEnable2<=1;
 						 state<=`left;
 						 column<=0;
 						 temp_column<=-1;
@@ -197,7 +196,7 @@ else
 				       if (row_reg[2]==1)
 						     begin
 							  WriteAddress<=WriteAddress+1;
-					        WriteEnable<=1;
+					        WriteEnable2<=1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
 							  temp_row<=row-1;
@@ -205,14 +204,14 @@ else
 							  end
 						 else
 						     begin
-							  WriteEnable<=0;
+							  WriteEnable2<=0;
 							  temp_row<=temp_row+1;
 							  row_reg<={row_reg[1:0],row_reg[2]};
 							  end
 				  end
 				  
     `complete: begin
-	           WriteEnable<=0;
+	           WriteEnable2<=0;
               BufferEnable<=0;
               ready<=1;
 				  row<=0;
@@ -227,4 +226,8 @@ else
 	 default: state<=`idle;
 	 
 	 endcase
+
+//delayed version of WriteEnable	 
+always @ (posedge clk)
+WriteEnable<=WriteEnable2;
 endmodule
