@@ -39,7 +39,7 @@ input [DataBitWidth-1:0] d_in,     // from memory
 output  [AddressBitWidth-1:0]ReadAddress,
 output reg [AddressBitWidth-1:0] WriteAddress,
 output  [DataBitWidth-1:0] d_out,
-output reg ready
+output reg ready,WriteEnable
     );
 
 
@@ -81,6 +81,7 @@ if (rst)
 	 temp_column<=0;
 	 BufferEnable<=0;
 	 ready<=0;
+	 WriteEnable<=0;
 	 end
 else
     case (state)
@@ -103,6 +104,8 @@ else
 				  temp_row<=-1;
 				  if (column_reg[2]==1)
 				      begin
+						WriteEnable<=1;
+						WriteAddress<=WriteAddress+1;
 						state<=`top;
 						column<=column+1'b1;
 					   end
@@ -115,18 +118,22 @@ else
 			 end
 			 
 	  `top: begin
-	        if (temp_column == `NoOfColumns && row_reg[2]==1)
+	        if (temp_column == `NoOfColumns && row_reg[2]==1)  
 				       begin
+						 WriteEnable<=1;
+						 WriteAddress<=WriteAddress+1;
 						 state<=`left;
 						 column<=0;
 						 temp_column<=-1;
-						 row<=row+1;
-						 temp_row<=row+1;
+						 row<=row+1;    // next row of the destination 
+						 temp_row<=row; // starting point is 0 not 1
 					    row_reg<={row_reg[1:0],row_reg[2]};
 						 end
 			      else
 				       if (row_reg[2]==1)
 						     begin
+							  WriteEnable<=1;
+							  WriteAddress<=WriteAddress+1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
 							  temp_row<=-1;
@@ -134,6 +141,7 @@ else
 							  end
 						 else
 						     begin
+							  WriteEnable<=0;
 							  temp_row<=temp_row+1;
 							  row_reg<={row_reg[1:0],row_reg[2]};
 							  end
@@ -142,14 +150,16 @@ else
 	        
 	  
 	 `left: begin
-	        if ( row_reg[2]==1'b1) // previous or next value at the clock edge??
+	        if ( row_reg[2]==1'b1) 
 			      begin
 				   row_reg<={row_reg[1:0],row_reg[2]};
 				   column_reg<={column_reg[1:0],column_reg[2]};
 				   temp_column<=temp_column+1;
-				   temp_row<=row;
+				   temp_row<=row-1;
 				   if (column_reg[2]==1)
 				       begin
+						 WriteAddress<=WriteAddress+1;
+						 WriteEnable<=1;
 						 state<=`middle;
 						 column<=column+1'b1;
 						 temp_column<=temp_column+1'b1;
@@ -157,6 +167,7 @@ else
 				   end
 			  else
 			      begin
+					WriteEnable<=0;
 				   row_reg<={row_reg[1:0],row_reg[2]};
 				   temp_row<=temp_row+1'b1;
 				   end
@@ -166,35 +177,42 @@ else
            if (temp_row == `NoOfRows && temp_column == `NoOfColumns && row_reg[2]==1)
 			      //row == `NoOfRows-2 && temp_column == 0 && row_reg[0]==1
 			      begin
-				   BufferEnable<=0;
+					WriteAddress<=WriteAddress+1;
+					WriteEnable<=1;
 				   state<=`complete;
 				   end
 			  else
 			      if (temp_column == `NoOfColumns && row_reg[2]==1)
 				       begin
+						 WriteAddress<=WriteAddress+1;
+					    WriteEnable<=1;
 						 state<=`left;
 						 column<=0;
 						 temp_column<=-1;
 						 row<=row+1;
-						 temp_row<=row+1;
+						 temp_row<=row;
 					    row_reg<={row_reg[1:0],row_reg[2]};
 						 end
 			      else
 				       if (row_reg[2]==1)
 						     begin
+							  WriteAddress<=WriteAddress+1;
+					        WriteEnable<=1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
-							  temp_row<=row;
+							  temp_row<=row-1;
 							  row_reg<={row_reg[1:0],row_reg[2]};
 							  end
 						 else
 						     begin
+							  WriteEnable<=0;
 							  temp_row<=temp_row+1;
 							  row_reg<={row_reg[1:0],row_reg[2]};
 							  end
 				  end
 				  
     `complete: begin
+	           WriteEnable<=0;
               BufferEnable<=0;
               ready<=1;
 				  row<=0;

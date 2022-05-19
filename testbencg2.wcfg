@@ -10,7 +10,7 @@
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="17" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/conv2d_tb2/start" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">start</obj_property>
       <obj_property name="ObjectShortName">start</obj_property>
@@ -39,17 +39,34 @@
       <obj_property name="ObjectShortName">temp_column[8:0]</obj_property>
       <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/conv2d_tb2/uut/BufferEnable" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">BufferEnable</obj_property>
-      <obj_property name="ObjectShortName">BufferEnable</obj_property>
+   <wvobject fp_name="/conv2d_tb2/uut/row" type="array" db_ref_id="1">
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="ElementShortName">row[7:0]</obj_property>
+      <obj_property name="ObjectShortName">row[7:0]</obj_property>
+      <obj_property name="label">row[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/conv2d_tb2/uut/AddressValid" type="logic" db_ref_id="1">
-      <obj_property name="ElementShortName">AddressValid</obj_property>
-      <obj_property name="ObjectShortName">AddressValid</obj_property>
+   <wvobject fp_name="/conv2d_tb2/uut/column" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">column[7:0]</obj_property>
+      <obj_property name="ObjectShortName">column[7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/state" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">state[2:0]</obj_property>
       <obj_property name="ObjectShortName">state[2:0]</obj_property>
+      <obj_property name="Radix">BINARYRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/BufferEnable" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">BufferEnable</obj_property>
+      <obj_property name="ObjectShortName">BufferEnable</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff00ff</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/AddressValid" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">AddressValid</obj_property>
+      <obj_property name="ObjectShortName">AddressValid</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="CustomSignalColor">#ff00ff</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/BufferOut" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">BufferOut[11:0]</obj_property>
@@ -75,6 +92,12 @@
    <wvobject fp_name="/conv2d_tb2/d_in" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">d_in[11:0]</obj_property>
       <obj_property name="ObjectShortName">d_in[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/conv2d_tb2/uut/BufferIn" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">BufferIn[11:0]</obj_property>
+      <obj_property name="ObjectShortName">BufferIn[11:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
    <wvobject fp_name="/conv2d_tb2/uut/b/d_out" type="array" db_ref_id="1">
       <obj_property name="ElementShortName">d_out[11:0]</obj_property>
