@@ -77,13 +77,13 @@
          <ClosedNode>/conv2d C:|Users|user3|Downloads|Documents|convolution_2|conv2d.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>conv2d_tb2 (C:/Users/user3/Downloads/Documents/convolution_2/conv2d_tb2.v)</SelectedItem>
+         <SelectedItem>test_bench_3 (C:/Users/user3/Downloads/Documents/convolution_2/test_bench_3.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000000d7000000020000000000000000000000000200000064ffffffff000000810000000300000002000000d70000000100000003000000000000000100000003</ViewHeaderState>
-      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
-      <CurrentItem>conv2d_tb2 (C:/Users/user3/Downloads/Documents/convolution_2/conv2d_tb2.v)</CurrentItem>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000000e0000000020000000000000000000000000200000064ffffffff000000810000000300000002000000e00000000100000003000000000000000100000003</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
+      <CurrentItem>test_bench_3 (C:/Users/user3/Downloads/Documents/convolution_2/test_bench_3.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>

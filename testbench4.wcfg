@@ -3,14 +3,14 @@
    <wave_state>
    </wave_state>
    <db_ref_list>
-      <db_ref path="C:/Users/user3/Downloads/Documents/convolution_2/test_bench_3_isim_beh.wdb" id="1" type="auto">
+      <db_ref path="C:/Users/user3/Downloads/Documents/convolution_2/test_bench_3_isim_beh1.wdb" id="1" type="auto">
          <top_modules>
             <top_module name="glbl" />
             <top_module name="test_bench_3" />
          </top_modules>
       </db_ref>
    </db_ref_list>
-   <WVObjectSize size="18" />
+   <WVObjectSize size="20" />
    <wvobject fp_name="/test_bench_3/rst" type="logic" db_ref_id="1">
       <obj_property name="ElementShortName">rst</obj_property>
       <obj_property name="ObjectShortName">rst</obj_property>
@@ -220,54 +220,16 @@
          <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
       </wvobject>
    </wvobject>
-   <wvobject fp_name="/test_bench_3/uut/b/mem" type="array" db_ref_id="1">
-      <obj_property name="ElementShortName">mem[8:0,11:0]</obj_property>
-      <obj_property name="ObjectShortName">mem[8:0,11:0]</obj_property>
-      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[8]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[8,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[8,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[7]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[7,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[7,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[6]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[6,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[6,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[5]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[5,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[5,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[4]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[4,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[4,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[3]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[3,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[3,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[2]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[2,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[2,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[1]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[1,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[1,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
-      <wvobject fp_name="/test_bench_3/uut/b/mem[0]" type="array" db_ref_id="1">
-         <obj_property name="ElementShortName">[0,11:0]</obj_property>
-         <obj_property name="ObjectShortName">mem[0,11:0]</obj_property>
-         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
-      </wvobject>
+   <wvobject fp_name="/test_bench_3/uut/b/mem1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem1[8:0,6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem1[8:0,6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_bench_3/uut/b/mem2" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem2[8:0,6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem2[8:0,6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/test_bench_3/uut/b/mem3" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem3[8:0,6:0]</obj_property>
+      <obj_property name="ObjectShortName">mem3[8:0,6:0]</obj_property>
    </wvobject>
 </wave_config>
