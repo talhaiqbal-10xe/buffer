@@ -41,10 +41,11 @@
 *.xml
 *.xrpt
 *.exe.sim/
-*.v
 *.xml
 *.bld
 *.cmd_log
 xlnx_auto_0_xdb/
 xst/
 *.twr
+/isim
+*.projectmgr

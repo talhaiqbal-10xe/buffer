@@ -29,7 +29,7 @@
 `define NoOfRows 8'b0000_0101
 
 
-module conv2d
+ module conv2d
 #(parameter AddressBitWidth=17, parameter DataBitWidth=12,
   parameter StateBitWidth=3, parameter FilterSize=3,
   parameter ImageSizeBitWidth=8
@@ -52,13 +52,16 @@ wire [DataBitWidth-1:0] BufferOut,BufferIn;
 wire signed [AddressBitWidth:0] ReadAddress2;
 reg BufferEnable,WriteEnable2;
 
-assign BufferIn=AddressValid?d_in:0;	  
-// Instantiating Buffer
-buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
-
 // Finding valid Address
 wire AddressValid;
 assign AddressValid = (temp_row>=0 && temp_row <=`NoOfRows-1) && (temp_column>=0 && temp_column <=`NoOfColumns-1);
+
+
+	  
+// Instantiating Buffer
+assign BufferIn=AddressValid?d_in:0;
+buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
+
 //assign d_out = (AddressValid ==1) ? BufferOut:12'd0;
 assign d_out = BufferOut;
 
