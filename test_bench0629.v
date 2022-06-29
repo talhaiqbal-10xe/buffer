@@ -52,15 +52,20 @@ module test_bench0629;
 
 	reg [11:0] mem [0:50*50-1];
    reg [11:0] mem_out [0:50*50-1];
+	
+   
+   integer outfile0,i;
 
-	initial begin
+	
+		initial begin
 		// Initialize Inputs
 		clk = 0;
 		rst = 1;
 		start = 0;
 		
+		outfile0=$fopen("out_image_verilog.txt","w");
 		$readmemb("input_image.mem", mem);
-
+		
 		// Wait 100 ns for global reset to finish
 		#20;
 		rst=0;
@@ -68,17 +73,29 @@ module test_bench0629;
       #20;
 		start=0;
 		// Add stimulus here
+		#280550
+		for (i=0;i<=50*50-1;i=i+1)
+		begin
+		$fwrite(outfile0,"%b\n",mem_out[i]);
+		#5;
+		end
+		#5;
+		$fclose(outfile0);
 
 	end
 
-always #10
-begin
+always #10 
+begin 
 clk=~clk;
-end   
+end    
 always @(*) 
 d_in = mem[ReadAddress];
+
 always @(WriteEnable)
+begin
 mem_out[WriteAddress]=d_out;
+end
+
       
 endmodule
 
