@@ -123,7 +123,7 @@ else
 			 end
 			 
 	  `top: begin  // traversing the first row of the image except the top left pixel
-	        if (temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1) // if row completed for the last column  
+	        if (temp_column == `NoOfColumns-Offset-1 && row_reg[FilterSize-1]==1) // if row completed for the last column  
 				       begin
 						 WriteEnable2<=1;
 						 WriteAddress<=WriteAddress+1;
@@ -179,14 +179,14 @@ else
 			  end
 	
 	 `middle:begin // as Offset is a negative number so it is being subtracted in the following line for addition
-           if (temp_row == `NoOfRows-Offset && temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1)
+           if (temp_row == `NoOfRows-Offset-1 && temp_column == `NoOfColumns-Offset-1 && row_reg[FilterSize-1]==1)
 			      begin
 					WriteAddress<=WriteAddress+1;
 					WriteEnable2<=1;
 				   state<=`complete;
 				   end
 			  else
-			      if (temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1)
+			      if (temp_column == `NoOfColumns-Offset-1 && row_reg[FilterSize-1]==1)
 				       begin
 						 WriteAddress<=WriteAddress+1;
 					    WriteEnable2<=1;

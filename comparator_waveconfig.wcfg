@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/user3/Downloads/Documents/convolution_2/comparator_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="comparator" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="6" />
+   <wvobject fp_name="/comparator/t" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">t</obj_property>
+      <obj_property name="ObjectShortName">t</obj_property>
+   </wvobject>
+   <wvobject fp_name="/comparator/mem0_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem0_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">mem0_out[11:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/comparator/mem1_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">mem1_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">mem1_out[11:0]</obj_property>
+      <obj_property name="Radix">SIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/comparator/outfile0" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">outfile0[31:0]</obj_property>
+      <obj_property name="ObjectShortName">outfile0[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/comparator/outfile1" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">outfile1[31:0]</obj_property>
+      <obj_property name="ObjectShortName">outfile1[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/comparator/i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+</wave_config>
