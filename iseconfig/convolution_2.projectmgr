@@ -77,13 +77,13 @@
          <ClosedNode>/conv2d C:|Users|user3|Downloads|Documents|convolution_2|conv2d.v</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>uut - conv2d (C:/Users/user3/Downloads/Documents/convolution_2/conv2d.v)</SelectedItem>
+         <SelectedItem>conv2d_tb (C:/Users/user3/Downloads/Documents/convolution_2/conv2d_tb.v)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000000f9000000020000000000000000000000000200000064ffffffff000000810000000300000002000000f90000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>uut - conv2d (C:/Users/user3/Downloads/Documents/convolution_2/conv2d.v)</CurrentItem>
+      <CurrentItem>conv2d_tb (C:/Users/user3/Downloads/Documents/convolution_2/conv2d_tb.v)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -114,5 +114,5 @@
       <CurrentItem></CurrentItem>
    </ItemView>
    <SourceProcessView>000000ff000000000000000200000126000000f901000000050100000002</SourceProcessView>
-   <CurrentView>Behavioral Simulation</CurrentView>
+   <CurrentView>Implementation</CurrentView>
 </Project>
