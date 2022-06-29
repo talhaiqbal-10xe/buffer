@@ -1,12 +1,13 @@
 `timescale 1ns / 1ps
+
 ////////////////////////////////////////////////////////////////////////////////
 // Company: 
 // Engineer:
 //
-// Create Date:   16:20:44 05/17/2022
+// Create Date:   12:17:44 06/29/2022
 // Design Name:   conv2d
-// Module Name:   C:/Users/user3/Downloads/Documents/convolution/conv2d_tb.v
-// Project Name:  convolution
+// Module Name:   C:/Users/user3/Downloads/Documents/convolution_2/test_bench0629.v
+// Project Name:  convolution_2
 // Target Device:  
 // Tool versions:  
 // Description: 
@@ -21,7 +22,7 @@
 // 
 ////////////////////////////////////////////////////////////////////////////////
 
-module conv2d_tb;
+module test_bench0629;
 
 	// Inputs
 	reg clk;
@@ -30,26 +31,28 @@ module conv2d_tb;
 	reg [11:0] d_in;
 
 	// Outputs
-	wire [16:0] addr_rd;
-	wire [16:0] addr_wr;
+	wire [16:0] ReadAddress;
+	wire [16:0] WriteAddress;
 	wire [11:0] d_out;
 	wire ready;
-   
-	
-	
+	wire WriteEnable;
 
 	// Instantiate the Unit Under Test (UUT)
 	conv2d uut (
 		.clk(clk), 
 		.rst(rst), 
 		.start(start), 
-		.d_in(d_in),  
-		.addr_rd(addr_rd), 
-		.addr_wr(addr_wr), 
+		.d_in(d_in), 
+		.ReadAddress(ReadAddress), 
+		.WriteAddress(WriteAddress), 
 		.d_out(d_out), 
-		.ready(ready)
+		.ready(ready), 
+		.WriteEnable(WriteEnable)
 	);
-reg [11:0] mem [0:50*50-1];
+
+	reg [11:0] mem [0:50*50-1];
+   reg [11:0] mem_out [0:50*50-1];
+
 	initial begin
 		// Initialize Inputs
 		clk = 0;
@@ -62,7 +65,8 @@ reg [11:0] mem [0:50*50-1];
 		#20;
 		rst=0;
 		start=1;
-        
+      #20;
+		start=0;
 		// Add stimulus here
 
 	end
@@ -72,8 +76,9 @@ begin
 clk=~clk;
 end   
 always @(*) 
-d_in = mem[addr_rd];
-always @ (en)
-mem_out[   
+d_in = mem[ReadAddress];
+always @(WriteEnable)
+mem_out[WriteAddress]=d_out;
+      
 endmodule
 

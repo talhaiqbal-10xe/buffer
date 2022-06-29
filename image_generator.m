@@ -10,3 +10,11 @@ dlmwrite('input_image.mem',r_bin,'delimiter','');
 % fileID = fopen('input_image.txt','w');
 % fwrite(fileID,r_reshaped);
 % fclose(fileID);
+f= [0 0 0 0 0;
+    0 1 2 1 0;
+    0 0 0 0 0;
+    0 -1 -2 -1 0;
+    0 0 0 0 0;];
+c=filter2(r,f,'same')
+
+

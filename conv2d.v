@@ -25,13 +25,16 @@
 `define middle 3'b100
 `define complete 3'b101
 
-`define NoOfColumns 8'b0000_0101
-`define NoOfRows 8'b0000_0101
+`define NoOfColumns 8'b0011_0010
+`define NoOfRows 8'b0011_0010
+`define SerialRegBW 5
+`define SerialInit 5'b00001
+`define RowColBW 8
 
 
  module conv2d
 #(parameter AddressBitWidth=17, parameter DataBitWidth=12,
-  parameter StateBitWidth=3, parameter FilterSize=3,
+  parameter StateBitWidth=3, parameter FilterSize=5, parameter Offset=-1*$floor(FilterSize/2),
   parameter ImageSizeBitWidth=8
   )(
 input clk,rst,start,
@@ -76,8 +79,8 @@ if (rst)
     begin
 	 state<=`idle;
 	 WriteAddress <=0;
-	 row_reg <=3'b001;
-	 column_reg <=3'b001; // 001-->010-->100-->001
+	 row_reg <=`SerialInit;
+	 column_reg <=`SerialInit; // 001-->010-->100-->001
 	 row<=0;
 	 column<=0;
 	 temp_row<=0;
@@ -93,72 +96,72 @@ else
 			    begin
 				 state<=`top_left;
 				 BufferEnable<=1;
-				 temp_row<=-1;
-				 temp_column<=-1;
+				 temp_row<=Offset;
+				 temp_column<=Offset;
 				 end				 
 			 end
 
 `top_left: begin
-           if ( row_reg[2]==1'b1) // previous or next value at the clock edge??
+           if ( row_reg[FilterSize-1]==1'b1) // if one row completed
 			     begin
-				  row_reg<={row_reg[1:0],row_reg[2]};
-				  column_reg<={column_reg[1:0],column_reg[2]};
+				  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
+				  column_reg<={column_reg[FilterSize-2:0],column_reg[FilterSize-1]};
 				  temp_column<=temp_column+1;
-				  temp_row<=-1;
-				  if (column_reg[2]==1)
+				  temp_row<=Offset;
+				  if (column_reg[FilterSize-1]==1) // if all columns are completed
 				      begin
 						WriteEnable2<=1;
 						state<=`top;
-						column<=column+1'b1;
+						column<=column+1'b1;        // move to next column
 					   end
 				  end
 			 else
 			     begin
-				  row_reg<={row_reg[1:0],row_reg[2]};
+				  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]}; 
 				  temp_row<=temp_row+1'b1;
 				  end
 			 end
 			 
-	  `top: begin
-	        if (temp_column == `NoOfColumns && row_reg[2]==1)  
+	  `top: begin  // traversing the first row of the image except the top left pixel
+	        if (temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1) // if row completed for the last column  
 				       begin
 						 WriteEnable2<=1;
 						 WriteAddress<=WriteAddress+1;
 						 state<=`left;
 						 column<=0;
-						 temp_column<=-1;
-						 row<=row+1;    // next row of the destination 
-						 temp_row<=row; // starting point is 0 not 1
-					    row_reg<={row_reg[1:0],row_reg[2]};
+						 temp_column<=Offset;
+						 row<=row+1;           // next row of the destination 
+						 temp_row<=row+Offset+1; 
+					    row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 						 end
 			      else
-				       if (row_reg[2]==1)
+				       if (row_reg[FilterSize-1]==1)
 						     begin
 							  WriteEnable2<=1;
 							  WriteAddress<=WriteAddress+1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
-							  temp_row<=-1;
-							  row_reg<={row_reg[1:0],row_reg[2]};
+							  temp_row<=Offset;
+							  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 							  end
 						 else
 						     begin
 							  WriteEnable2<=0;
 							  temp_row<=temp_row+1;
-							  row_reg<={row_reg[1:0],row_reg[2]};
+							  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 							  end
 			  end
 	     
 	        
 	  
 	 `left: begin
-	        if ( row_reg[2]==1'b1) 
+	        if ( row_reg[FilterSize-1]==1'b1) 
 			      begin
-				   row_reg<={row_reg[1:0],row_reg[2]};
-				   column_reg<={column_reg[1:0],column_reg[2]};
+				   row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
+				   column_reg<={column_reg[FilterSize-2:0],column_reg[FilterSize-1]};
 				   temp_column<=temp_column+1;
-				   temp_row<=row-1;
-				   if (column_reg[2]==1)
+				   temp_row<=row+Offset;
+				   if (column_reg[FilterSize-1]==1)
 				       begin
 						 WriteAddress<=WriteAddress+1;
 						 WriteEnable2<=1;
@@ -170,46 +173,45 @@ else
 			  else
 			      begin
 					WriteEnable2<=0;
-				   row_reg<={row_reg[1:0],row_reg[2]};
+				   row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 				   temp_row<=temp_row+1'b1;
 				   end
 			  end
 	
-	 `middle:begin
-           if (temp_row == `NoOfRows && temp_column == `NoOfColumns && row_reg[2]==1)
-			      //row == `NoOfRows-2 && temp_column == 0 && row_reg[0]==1
+	 `middle:begin // as Offset is a negative number so it is being subtracted in the following line for addition
+           if (temp_row == `NoOfRows-Offset && temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1)
 			      begin
 					WriteAddress<=WriteAddress+1;
 					WriteEnable2<=1;
 				   state<=`complete;
 				   end
 			  else
-			      if (temp_column == `NoOfColumns && row_reg[2]==1)
+			      if (temp_column == `NoOfColumns-Offset && row_reg[FilterSize-1]==1)
 				       begin
 						 WriteAddress<=WriteAddress+1;
 					    WriteEnable2<=1;
 						 state<=`left;
 						 column<=0;
-						 temp_column<=-1;
+						 temp_column<=Offset;
 						 row<=row+1;
 						 temp_row<=row;
-					    row_reg<={row_reg[1:0],row_reg[2]};
+					    row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 						 end
 			      else
-				       if (row_reg[2]==1)
+				       if (row_reg[FilterSize-1]==1)
 						     begin
 							  WriteAddress<=WriteAddress+1;
 					        WriteEnable2<=1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
-							  temp_row<=row-1;
-							  row_reg<={row_reg[1:0],row_reg[2]};
+							  temp_row<=row+Offset;
+							  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 							  end
 						 else
 						     begin
 							  WriteEnable2<=0;
 							  temp_row<=temp_row+1;
-							  row_reg<={row_reg[1:0],row_reg[2]};
+							  row_reg<={row_reg[FilterSize-2:0],row_reg[FilterSize-1]};
 							  end
 				  end
 				  

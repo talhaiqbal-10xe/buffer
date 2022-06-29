@@ -47,14 +47,16 @@ module conv2d_tb2;
 		.d_out(d_out), 
 		.ready(ready)
 	);
-reg [11:0] mem [0:24];
+reg [11:0] mem [0:50*50-1];
+reg [11:0] mem_out [0:50*50-1];
+
 	initial begin
 		// Initialize Inputs
 		clk = 0;
 		rst = 1;
 		start = 0;
 		
-		$readmemb("test_image.mem", mem);
+		$readmemb("input_image.mem", mem);
 
 		// Wait 100 ns for global reset to finish
 		#20;
@@ -71,6 +73,6 @@ begin
 clk=~clk;
 end   
 always @(*) 
-d_in = mem[ReadAddress[4:0]];   
+d_in = mem[ReadAddress[4:0]];
 endmodule
 
