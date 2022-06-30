@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/user3/Downloads/Documents/convolution_2/buffer2d_tb_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="buffer2d_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="9" />
+   <wvobject fp_name="/buffer2d_tb/d_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">d_out[11:0]</obj_property>
+      <obj_property name="ObjectShortName">d_out[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">en</obj_property>
+      <obj_property name="ObjectShortName">en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/f_coeff" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">f_coeff[199:0]</obj_property>
+      <obj_property name="ObjectShortName">f_coeff[199:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/d_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">d_in[11:0]</obj_property>
+      <obj_property name="ObjectShortName">d_in[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/uut/coeff" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">coeff[0:4,0:4,7:0]</obj_property>
+      <obj_property name="ObjectShortName">coeff[0:4,0:4,7:0]</obj_property>
+      <wvobject fp_name="/buffer2d_tb/uut/coeff[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,0:4,7:0]</obj_property>
+         <obj_property name="ObjectShortName">coeff[0,0:4,7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/coeff[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,0:4,7:0]</obj_property>
+         <obj_property name="ObjectShortName">coeff[1,0:4,7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/coeff[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,0:4,7:0]</obj_property>
+         <obj_property name="ObjectShortName">coeff[2,0:4,7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/coeff[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,0:4,7:0]</obj_property>
+         <obj_property name="ObjectShortName">coeff[3,0:4,7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/coeff[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,0:4,7:0]</obj_property>
+         <obj_property name="ObjectShortName">coeff[4,0:4,7:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/buffer2d_tb/uut/data" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">data[0:4,0:4,11:0]</obj_property>
+      <obj_property name="ObjectShortName">data[0:4,0:4,11:0]</obj_property>
+      <wvobject fp_name="/buffer2d_tb/uut/data[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,0:4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">data[0,0:4,11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/data[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,0:4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">data[1,0:4,11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/data[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,0:4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">data[2,0:4,11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/data[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,0:4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">data[3,0:4,11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer2d_tb/uut/data[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,0:4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">data[4,0:4,11:0]</obj_property>
+         <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

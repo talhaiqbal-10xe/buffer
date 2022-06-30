@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="C:/Users/user3/Downloads/Documents/convolution_2/buffer1d_tb_isim_beh1.wdb" id="1" type="auto">
+         <top_modules>
+            <top_module name="buffer1d_tb" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <WVObjectSize size="8" />
+   <wvobject fp_name="/buffer1d_tb/d_out" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">d_out[59:0]</obj_property>
+      <obj_property name="ObjectShortName">d_out[59:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/clk" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/rst" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">rst</obj_property>
+      <obj_property name="ObjectShortName">rst</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/en" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">en</obj_property>
+      <obj_property name="ObjectShortName">en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/shift" type="logic" db_ref_id="1">
+      <obj_property name="ElementShortName">shift</obj_property>
+      <obj_property name="ObjectShortName">shift</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/d_in" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">d_in[11:0]</obj_property>
+      <obj_property name="ObjectShortName">d_in[11:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/i" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">i[31:0]</obj_property>
+      <obj_property name="ObjectShortName">i[31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/buffer1d_tb/uut/inp_mem" type="array" db_ref_id="1">
+      <obj_property name="ElementShortName">inp_mem[0:4,11:0]</obj_property>
+      <obj_property name="ObjectShortName">inp_mem[0:4,11:0]</obj_property>
+      <wvobject fp_name="/buffer1d_tb/uut/inp_mem[0]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[0,11:0]</obj_property>
+         <obj_property name="ObjectShortName">inp_mem[0,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer1d_tb/uut/inp_mem[1]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[1,11:0]</obj_property>
+         <obj_property name="ObjectShortName">inp_mem[1,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer1d_tb/uut/inp_mem[2]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[2,11:0]</obj_property>
+         <obj_property name="ObjectShortName">inp_mem[2,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer1d_tb/uut/inp_mem[3]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[3,11:0]</obj_property>
+         <obj_property name="ObjectShortName">inp_mem[3,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+      <wvobject fp_name="/buffer1d_tb/uut/inp_mem[4]" type="array" db_ref_id="1">
+         <obj_property name="ElementShortName">[4,11:0]</obj_property>
+         <obj_property name="ObjectShortName">inp_mem[4,11:0]</obj_property>
+         <obj_property name="Radix">HEXRADIX</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>

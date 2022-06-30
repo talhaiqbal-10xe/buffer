@@ -19,38 +19,54 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 `define SerialInit 5'b00001
-
+`define FilterBitWidth 8
+`define FilterSize 5
 module buffer
-#(parameter DataBitWidth=12, parameter FilterSize=5)
+#(parameter DataBitWidth=12)
 (
 input clk,rst,en,
+input [`FilterSize*`FilterSize*`FilterBitWidth-1:0] f_coeff,
 input signed [DataBitWidth-1:0] d_in,
 output signed [DataBitWidth-1:0] d_out
     );
 
-reg signed [DataBitWidth-1:0] mem1 [0:FilterSize*FilterSize-1];
-reg [FilterSize-1:0] state;
+reg signed [DataBitWidth-1:0] mem1 [0:`FilterSize*`FilterSize-1];
+reg [`FilterSize-1:0] state;
 
 
 assign d_out=-1*mem1[16]+-2*mem1[17]+-1*mem1[18]+mem1[6]+2*mem1[7]+mem1[8];
 
+wire [`FilterBitWidth-1:0] coeff [0:`FilterSize-1][0:`FilterSize-1];
 
+// saving coefficients
+genvar i,j,n;
+generate
+for ( i=0; i<=`FilterSize-1; i=i+1)
+     begin 
+	  for ( j=0; j<=`FilterSize-1; j=j+1)
+	       begin 
+			 assign coeff[i][j] = f_coeff[i*(`FilterSize*`FilterBitWidth)+j*`FilterBitWidth+`FilterBitWidth-1:
+              			           i*(`FilterSize*`FilterBitWidth)+j*`FilterBitWidth];
+			 end
+	  end
+endgenerate		
+			 
 
-integer i;
+integer k;
 
 always @(posedge clk)
 if (rst)
     begin
 	 state<=`SerialInit;
-	 for ( i=0;i<=FilterSize*FilterSize-1;i=i+1)
+	 for ( k=0;k<=`FilterSize*`FilterSize-1;k=k+1)
          begin
-			mem1[i]<=0;
+			mem1[k]<=0;
 			end
 	 end
 else 
     if(en)
 	    begin
-		 state<={state[FilterSize-2:0],state[FilterSize-1]};
+		 state<={state[`FilterSize-2:0],state[`FilterSize-1]};
       
 					  if (state[0]==1)
 							begin

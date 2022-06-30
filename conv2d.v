@@ -1,7 +1,7 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
+// Company: 10xEngineers
+// Engineer: Hafiz Talha Iqbal
 // 
 // Create Date:    19:10:42 05/07/2022 
 // Design Name: 
@@ -27,9 +27,9 @@
 
 `define NoOfColumns 8'b0011_0010
 `define NoOfRows 8'b0011_0010
-`define SerialRegBW 5
-`define SerialInit 5'b00001
-`define RowColBW 8
+`define SerialRegBW 5              //Serial Register bitwidth
+`define SerialInit 5'b00001        //Serial register initial value
+`define RowColBW 8                 //Bits to store number of rows and columns
 
 
  module conv2d
@@ -48,24 +48,22 @@ output reg ready,WriteEnable
 
 // necessary registers and wires	 
 reg [StateBitWidth-1:0] state;
-reg [FilterSize-1:0] row_reg,column_reg;
-reg [ImageSizeBitWidth-1:0] row,column;
+reg [FilterSize-1:0] row_reg,column_reg;             // circular serial shift register to track row and column read
+reg [ImageSizeBitWidth-1:0] row,column;              // location of the center pixel
 reg signed[ImageSizeBitWidth:0]temp_row,temp_column; // temp_row and temp_column can be negative so 1 more bit
-wire [DataBitWidth-1:0] BufferOut,BufferIn;
-wire signed [AddressBitWidth:0] ReadAddress2;
-reg BufferEnable,WriteEnable2;
+wire [DataBitWidth-1:0] BufferOut,BufferIn;          // Buffer data input and output 
+wire signed [AddressBitWidth:0] ReadAddress2; 
+reg BufferEnable,WriteEnable2;                      
 
 // Finding valid Address
-wire AddressValid;
+wire AddressValid;                                   // to check if the address is valid 
 assign AddressValid = (temp_row>=0 && temp_row <=`NoOfRows-1) && (temp_column>=0 && temp_column <=`NoOfColumns-1);
 
 
 	  
 // Instantiating Buffer
-assign BufferIn=AddressValid?d_in:0;
+assign BufferIn=AddressValid?d_in:0;                 // in case of invalid address, give 0 as input to the buffer
 buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
-
-//assign d_out = (AddressValid ==1) ? BufferOut:12'd0;
 assign d_out = BufferOut;
 
 // Generating Read Address
@@ -80,7 +78,7 @@ if (rst)
 	 state<=`idle;
 	 WriteAddress <=0;
 	 row_reg <=`SerialInit;
-	 column_reg <=`SerialInit; // 001-->010-->100-->001
+	 column_reg <=`SerialInit; 
 	 row<=0;
 	 column<=0;
 	 temp_row<=0;
@@ -178,7 +176,7 @@ else
 				   end
 			  end
 	
-	 `middle:begin // as Offset is a negative number so it is being subtracted in the following line for addition
+	 `middle:begin // as Offset is a negative number so it is being subtracted in the following line for addition,-1 due to 0 as starting index
            if (temp_row == `NoOfRows-Offset-1 && temp_column == `NoOfColumns-Offset-1 && row_reg[FilterSize-1]==1)
 			      begin
 					WriteAddress<=WriteAddress+1;
@@ -232,7 +230,7 @@ else
 	 
 	 endcase
 
-//delayed version of WriteEnable	 
+//delayed version of WriteEnable as computation gets ready in the next clock cycle, see waveform	 
 always @ (posedge clk)
 WriteEnable<=WriteEnable2;
 endmodule
