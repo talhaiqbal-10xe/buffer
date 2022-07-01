@@ -18,13 +18,13 @@ f= [0 0 0 0 0;
     0 -1 -2 -1 0;
     0 0 0 0 0;];
 f_size=size(f)
-for i=f_size(1):-1:1
-    for j = f_size(2):-1:1
+for i=size(f)1:f_size(1)
+    for j = 1:f_size(2)
         temp=fi(f(i,j),1,8,0);
         coeff=strcat(coeff,temp.hex);
     end
 end
-
+coeff=flip(coeff);
 c=filter2(f,r,'same')
 c_reshaped=reshape(transpose(c),[row*column,1]);
 c_fp=fi(c_reshaped,1,12,0);

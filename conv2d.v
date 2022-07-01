@@ -35,13 +35,14 @@
  module conv2d
 #(parameter AddressBitWidth=17, parameter DataBitWidth=12,
   parameter StateBitWidth=3, parameter FilterSize=5, parameter Offset=-1*$floor(FilterSize/2),
-  parameter ImageSizeBitWidth=8
+  parameter ImageSizeBitWidth=8,parameter FilterBitWidth=8
   )(
 input clk,rst,start,
-input [DataBitWidth-1:0] d_in,     // from memory
+input signed [FilterSize*FilterSize*FilterBitWidth-1:0] f_coeff,
+input signed [DataBitWidth-1:0] d_in,     // from memory
 output  [AddressBitWidth-1:0]ReadAddress,
 output reg [AddressBitWidth-1:0] WriteAddress,
-output  [DataBitWidth-1:0] d_out,
+output reg signed  [DataBitWidth-1:0] d_out,
 output reg ready,WriteEnable
     );
 
@@ -63,8 +64,9 @@ assign AddressValid = (temp_row>=0 && temp_row <=`NoOfRows-1) && (temp_column>=0
 	  
 // Instantiating Buffer
 assign BufferIn=AddressValid?d_in:0;                 // in case of invalid address, give 0 as input to the buffer
-buffer b(clk,rst,BufferEnable,BufferIn,BufferOut);
-assign d_out = BufferOut;
+buffer_2d b(clk,rst,BufferEnable,f_coeff,BufferIn,BufferOut);
+
+//assign d_out = BufferOut;
 
 // Generating Read Address
 assign ReadAddress2 = temp_row*`NoOfColumns+temp_column;
@@ -109,6 +111,7 @@ else
 				  if (column_reg[FilterSize-1]==1) // if all columns are completed
 				      begin
 						WriteEnable2<=1;
+						d_out <= BufferOut;
 						state<=`top;
 						column<=column+1'b1;        // move to next column
 					   end
@@ -124,6 +127,7 @@ else
 	        if (temp_column == `NoOfColumns-Offset-1 && row_reg[FilterSize-1]==1) // if row completed for the last column  
 				       begin
 						 WriteEnable2<=1;
+						 d_out <= BufferOut;
 						 WriteAddress<=WriteAddress+1;
 						 state<=`left;
 						 column<=0;
@@ -136,6 +140,7 @@ else
 				       if (row_reg[FilterSize-1]==1)
 						     begin
 							  WriteEnable2<=1;
+							  d_out <= BufferOut;
 							  WriteAddress<=WriteAddress+1;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
@@ -163,6 +168,7 @@ else
 				       begin
 						 WriteAddress<=WriteAddress+1;
 						 WriteEnable2<=1;
+						 d_out <= BufferOut;
 						 state<=`middle;
 						 column<=column+1'b1;
 						 temp_column<=temp_column+1'b1;
@@ -181,6 +187,7 @@ else
 			      begin
 					WriteAddress<=WriteAddress+1;
 					WriteEnable2<=1;
+					d_out <= BufferOut;
 				   state<=`complete;
 				   end
 			  else
@@ -188,6 +195,7 @@ else
 				       begin
 						 WriteAddress<=WriteAddress+1;
 					    WriteEnable2<=1;
+						 d_out <= BufferOut;
 						 state<=`left;
 						 column<=0;
 						 temp_column<=Offset;
@@ -200,6 +208,7 @@ else
 						     begin
 							  WriteAddress<=WriteAddress+1;
 					        WriteEnable2<=1;
+							  d_out <= BufferOut;
 							  column<=column+1;
 							  temp_column<=temp_column+1;
 							  temp_row<=row+Offset;

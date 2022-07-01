@@ -49,7 +49,7 @@ module buffer2d_tb;
 		clk = 0;
 		rst = 1;
 		en = 0;
-		f_coeff = 200'h191817161514131211100F0E0D0C0B0A09080706050403020100;
+		f_coeff = 200'h00000000000001020100000000000000fffeff000000000000;
 		d_in = 0;
 
 		#20;
@@ -62,13 +62,13 @@ module buffer2d_tb;
 			  end
 	   
 		en=0;
-		#20 
-		en=1;
-		for (i=0;i<5;i=i+1)
-		     begin
-			  d_in=i+5;
-		     #20; 
-			  end
+//		#20 
+//		en=1;
+//		for (i=0;i<5;i=i+1)
+//		     begin
+//			  d_in=i+5;
+//		     #20; 
+//			  end
         
 		 //Add stimulus here
 
